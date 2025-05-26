@@ -180,9 +180,11 @@ if __name__ == "__main__":
     #             f.write(f"{score}\n")
 
     # Evaluate with work divided between agents
-    for i in range(12):
+    for i in range(4):
         scores = get_local_model_completions(multi_agent=True)
         print(scores)
-        with open(f"scores/scores_local_multi_{i}.txt", "w") as f:
+        with open(f"scores/scores_local_multi_{i+8}.txt", "w") as f:
             for score in scores:
                 f.write(f"{score}\n")
+
+    # TODO: experiment with temperature
