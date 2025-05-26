@@ -41,14 +41,16 @@ class Client:
                     content.append(
                         types.Content(
                             role=m["role"],
-                            parts=[types.Part.from_text(text=m["message"])]
+                            parts=[types.Part.from_text(text=m["content"])]
                         )
                     )
                 elif m["role"] == "system":
-                    kwargs["config"] = types.GenerateContentConfig(
-                        system_instruction=m["content"]
-                    )
-
+                    # kwargs["config"] = types.GenerateContentConfig(
+                    #     system_instruction=m["content"],
+                    #     **kwargs["config"]
+                    # )
+                    kwargs["config"]["system_instruction"] = m["content"]
+            kwargs["config"] = types.GenerateContentConfig(**(kwargs["config"]))
             res = self.client.models.generate_content(
                 model='gemini-2.0-flash-001',
                 contents=content,

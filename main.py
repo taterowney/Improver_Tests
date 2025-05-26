@@ -144,7 +144,10 @@ def get_gemini_completions():
 Remember to output the final score at the TOP of your explanation. """
                 }
             ]
-        response = client.get_response(messages)
+        response = client.get_response(
+            messages,
+            config={"temperature": 0.0}
+        )
 
         pattern = r'\d+'
         match = re.search(pattern, response)

@@ -22,4 +22,4 @@ done
 echo "vLLM server is up and running."
 
 source venv/bin/activate
-python3 main.py
+python3 main.py > logs/main.out 2>logs/main.out
