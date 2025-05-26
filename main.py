@@ -70,6 +70,7 @@ Remember to output ONLY the final score and a short explanation, without anythin
             choices = client.get_response(messages, raw=True).choices
             found_choice = False
             for c in choices:
+                print(c)
                 match = get_first_numeric_token(c.message.content)
                 if match != -1:
                     scores.append(match)
@@ -158,9 +159,27 @@ Remember to output the final score at the TOP of your explanation. """
 if __name__ == "__main__":
     # scores = get_local_model_completions()
     # print(scores)
-    for i in range(10):
-        scores = get_gemini_completions()
+
+    # Evaluate a few times using API model
+    # for i in range(12):
+    #     scores = get_gemini_completions()
+    #     print(scores)
+    #     with open(f"scores/scores_gemini_{i}.txt", "w") as f:
+    #         for score in scores:
+    #             f.write(f"{score}\n")
+
+    # Evaluate a few times using local model
+    for i in range(12):
+        scores = get_local_model_completions()
         print(scores)
-        with open(f"scores/scores_gemini_{i}.txt", "w") as f:
+        with open(f"scores/scores_local_{i}.txt", "w") as f:
+            for score in scores:
+                f.write(f"{score}\n")
+
+    # Evaluate with work divided between agents
+    for i in range(12):
+        scores = get_local_model_completions(multi_agent=True)
+        print(scores)
+        with open(f"scores/scores_local_multi_{i}.txt", "w") as f:
             for score in scores:
                 f.write(f"{score}\n")
