@@ -46,7 +46,7 @@ class Client:
                     )
                 elif m["role"] == "system":
                     kwargs["config"] = types.GenerateContentConfig(
-                        system_instruction=m["message"]
+                        system_instruction=m["content"]
                     )
 
             res = self.client.models.generate_content(

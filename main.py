@@ -54,11 +54,11 @@ def get_local_model_completions(multi_agent=False):
             messages = [
                 {
                     "role": "system",
-                    "message": FULL_PROMPT
+                    "content": FULL_PROMPT
                 },
                 {
                     "role": "user",
-                    "message": f"""
+                    "content": f"""
 The proof you will score is the following:
 ```lean
 {proof}
@@ -87,11 +87,11 @@ Remember to output ONLY the final score and a short explanation, without anythin
                     messages = [
                         {
                             "role": "system",
-                            "message": INDIVIDUAL_PROMPTS[i]["text"]
+                            "content": INDIVIDUAL_PROMPTS[i]["text"]
                         },
                         {
                             "role": "user",
-                            "message": f"""The proof you will score is the following:
+                            "content": f"""The proof you will score is the following:
 ```lean
 {proof}
 ```
@@ -132,11 +132,11 @@ def get_gemini_completions():
         messages = [
             {
                 "role": "system",
-                "message": FULL_PROMPT
+                "content": FULL_PROMPT
             },
             {
                 "role": "user",
-                "message": f"""The proof you will score is the following:
+                "content": f"""The proof you will score is the following:
 ```lean
 {proof}
 ```
