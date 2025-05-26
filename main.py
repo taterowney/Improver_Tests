@@ -172,12 +172,12 @@ if __name__ == "__main__":
     #             f.write(f"{score}\n")
 
     # Evaluate a few times using local model
-    for i in range(12):
-        scores = get_local_model_completions()
-        print(scores)
-        with open(f"scores/scores_local_{i}.txt", "w") as f:
-            for score in scores:
-                f.write(f"{score}\n")
+    # for i in range(12):
+    #     scores = get_local_model_completions()
+    #     print(scores)
+    #     with open(f"scores/scores_local_{i}.txt", "w") as f:
+    #         for score in scores:
+    #             f.write(f"{score}\n")
 
     # Evaluate with work divided between agents
     for i in range(12):
