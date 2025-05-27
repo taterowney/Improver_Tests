@@ -105,6 +105,7 @@ Remember to output ONLY the final score, without anything else."""
                 choices = futures[i].result().choices
                 found_choice = False
                 for c in choices:
+                    print(c.message)
                     match = get_first_numeric_token(c.message.content)
                     if match != -1:
                         score_sum += match
@@ -187,5 +188,6 @@ if __name__ == "__main__":
     #         for score in scores:
     #             f.write(f"{score}\n")
     scores = get_local_model_completions(multi_agent=True)
+    print(scores)
 
     # TODO: experiment with temperature
