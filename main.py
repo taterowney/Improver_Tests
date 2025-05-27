@@ -99,7 +99,7 @@ Remember to output ONLY the final score and a short explanation, without anythin
 Remember to output ONLY the final score, without anything else."""
                         }
                     ]
-                    futures.append(executor.submit(client.get_response, messages, raw=True))
+                    futures.append(executor.submit(client.get_response, messages, raw=True, temperature=0.0))
             score_sum = 0
             for i in range(len(futures)):
                 choices = futures[i].result().choices
@@ -180,11 +180,12 @@ if __name__ == "__main__":
     #             f.write(f"{score}\n")
 
     # Evaluate with work divided between agents
-    for i in range(4):
-        scores = get_local_model_completions(multi_agent=True)
-        print(scores)
-        with open(f"scores/scores_local_multi_{i+8}.txt", "w") as f:
-            for score in scores:
-                f.write(f"{score}\n")
+    # for i in range(4):
+    #     scores = get_local_model_completions(multi_agent=True)
+    #     print(scores)
+    #     with open(f"scores/scores_local_multi_{i+8}.txt", "w") as f:
+    #         for score in scores:
+    #             f.write(f"{score}\n")
+    scores = get_local_model_completions(multi_agent=True)
 
     # TODO: experiment with temperature
