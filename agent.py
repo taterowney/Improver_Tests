@@ -70,7 +70,7 @@ def load_offline_model():
     llm = LLM(model=MODEL_NAME)
     return llm
 
-def score_proof_online(proof, model):
+def score_proof_offline(proof, model):
     """
     Scores a proof using a local model.
     Returns the score as an integer.
@@ -92,7 +92,7 @@ def score_proof_online(proof, model):
                 executor.submit(
                     model.generate,
                     messages,
-                    sampline_params=SamplingParams(
+                    sampling_params=SamplingParams(
                         seed=42,
                         temperature=1.0,
                         top_p=1.0,
@@ -123,6 +123,6 @@ theorem kernel_is_normal_subgroup (h : α → β) (is_hom : is_homomorphism h) :
 
 
     model = load_offline_model()
-    print(score_proof_online(test_proof, model))
-    print(score_proof_online(test_proof, model))
-    print(score_proof_online(test_proof, model))
+    print(score_proof_offline(test_proof, model))
+    print(score_proof_offline(test_proof, model))
+    print(score_proof_offline(test_proof, model))
