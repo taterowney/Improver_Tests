@@ -59,7 +59,7 @@ def score_proof(proof):
                 )
             )
         for i in range(len(futures)):
-            score = get_first_numeric_token(futures[i].choices[0].message.content)
+            score = get_first_numeric_token(futures[i].result().choices[0].message.content)
             score = min(score, INDIVIDUAL_PROMPTS[i]["points"])
             total_score += score
 
