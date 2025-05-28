@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=training_data_thoughts
-#SBATCH --partition=general
+#SBATCH --partition=debug
 #SBATCH --output=logs/training_data_thoughts.out
 #SBATCH --error=logs/training_data_thoughts.err
 #SBATCH --nodes=1
