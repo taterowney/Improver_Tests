@@ -65,6 +65,47 @@ def score_proof(proof):
 
     return total_score
 
+def load_offline_model():
+    from vllm import LLM
+    llm = LLM(model=MODEL_NAME)
+    return llm
+
+def score_proof_online(proof, model):
+    """
+    Scores a proof using a local model.
+    Returns the score as an integer.
+    """
+    from vllm import SamplineParams
+    total_score = 0
+    with ThreadPoolExecutor() as executor:
+        futures = []
+
+        for i in range(len(INDIVIDUAL_PROMPTS)):
+            messages = [INDIVIDUAL_PROMPTS[i]["text"] + "\n< | User | >" + f"""The proof you will score is the following:
+        ```lean
+        {proof}
+        ```
+
+        Remember to output ONLY the final score, without anything else."""
+            ]
+            futures.append(
+                executor.submit(
+                    model.generate,
+                    messages,
+                    sampline_params=SamplingParams(
+                        seed=42,
+                        temperature=1.0,
+                        top_p=1.0,
+                    )
+                )
+            )
+        for i in range(len(futures)):
+            score = get_first_numeric_token(futures[i].result().choices[0].message.content)
+            score = min(score, INDIVIDUAL_PROMPTS[i]["points"])
+            total_score += score
+
+    return total_score
+
 if __name__ == '__main__':
     test_proof = """-- The kernel of a homomorphism forms a normal subgroup of its domain
 theorem kernel_is_normal_subgroup (h : α → β) (is_hom : is_homomorphism h) : ∃ (N : Subgroup α), normal N ∧ (N.carrier = kernel h) := by
@@ -78,4 +119,6 @@ theorem kernel_is_normal_subgroup (h : α → β) (is_hom : is_homomorphism h) :
       exact this
     exact { conj_mem := conj_mem }
   rfl"""
-    print(score_proof(test_proof), score_proof(test_proof), score_proof(test_proof))
+    # print(score_proof(test_proof), score_proof(test_proof), score_proof(test_proof))
+    model = load_offline_model()
+    print(score_proof_online(test_proof, model))
