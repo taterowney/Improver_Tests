@@ -75,7 +75,7 @@ def score_proof_online(proof, model):
     Scores a proof using a local model.
     Returns the score as an integer.
     """
-    from vllm import SamplineParams
+    from vllm import SamplingParams
     total_score = 0
     with ThreadPoolExecutor() as executor:
         futures = []
