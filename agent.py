@@ -51,9 +51,9 @@ def score_proof(proof):
             futures.append(executor.submit(client.chat.completions.create,
                     model=MODEL_NAME,
                     messages=messages,
+                    seed=42,
+                    temperature=0.0,
                     extra_body={
-                        "seed": 42,
-                        "temperature" : 0.0,
                         "top_p": 1.0,
                     }
                 )
@@ -119,6 +119,8 @@ theorem kernel_is_normal_subgroup (h : α → β) (is_hom : is_homomorphism h) :
       exact this
     exact { conj_mem := conj_mem }
   rfl"""
-    # print(score_proof(test_proof), score_proof(test_proof), score_proof(test_proof))
-    model = load_offline_model()
-    print(score_proof_online(test_proof, model))
+    print(score_proof(test_proof), score_proof(test_proof), score_proof(test_proof))
+    # model = load_offline_model()
+    # print(score_proof_online(test_proof, model))
+    # print(score_proof_online(test_proof, model))
+    # print(score_proof_online(test_proof, model))
